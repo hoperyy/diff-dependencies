@@ -1,6 +1,6 @@
 {
   "name": "diff-dependencies",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hoperyy/diff-package-json-dependencies.git"
+    "url": "git+https://github.com/hoperyy/diff-dependencies.git"
   },
   "author": "https://github.com/hoperyy",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hoperyy/diff-package-json-dependencies/issues"
+    "url": "https://github.com/hoperyy/diff-dependencies/issues"
   },
-  "homepage": "https://github.com/hoperyy/diff-package-json-dependencies#readme"
+  "homepage": "https://github.com/hoperyy/diff-dependencies#readme"
 }
