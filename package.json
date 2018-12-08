@@ -1,0 +1,19 @@
+{
+  "name": "diff-package-json-dependencies",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoperyy/diff-package-json-dependencies.git"
+  },
+  "author": "https://github.com/hoperyy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hoperyy/diff-package-json-dependencies/issues"
+  },
+  "homepage": "https://github.com/hoperyy/diff-package-json-dependencies#readme"
+}
