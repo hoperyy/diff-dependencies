@@ -1,9 +1,5 @@
-const fse = require('fs-extra');
 const path = require('path');
 const fs = require('fs');
-const readdirSync = require('recursive-readdir-sync');
-const arrayDiff = require('simple-array-diff');
-const ora = require('ora');
 
 const _getDependencesVersion = (packageJson, packageLockJson) => {
     let dependencies = {
@@ -47,15 +43,15 @@ const _getDependencesVersion = (packageJson, packageLockJson) => {
     return dependencies;
 };
 
-const _diffDependencies = (srcDependencies, targetDependencies) => {
+const _diffDependencies = (oldDependencies, newDependencies) => {
     const added = [];
     const removed = [];
     const common = [];
 
-    const srcMap = srcDependencies.map;
-    const targetMap = targetDependencies.map;
+    const srcMap = newDependencies.map;
+    const targetMap = oldDependencies.map;
 
-    if (targetDependencies.type === 'package-file-not-exists') {
+    if (oldDependencies.type === 'package-file-not-exists') {
         for (let key in srcMap) {
             added.push(`${key}@${srcMap[key].version}`);
         }
@@ -84,20 +80,20 @@ const _diffDependencies = (srcDependencies, targetDependencies) => {
     return {
         added,
         removed,
-        type: targetDependencies.type
+        type: oldDependencies.type
     };
 };
 
-const diffDependencies = (srcFolder, targetFolder) => {
-    if (!fs.existsSync(path.join(srcFolder, 'package.json')) || !fs.existsSync(path.join(srcFolder, 'package-lock.json'))) {
+const diffDependencies = (oldFolder, newFolder) => {
+    if (!fs.existsSync(path.join(newFolder, 'package.json')) || !fs.existsSync(path.join(newFolder, 'package-lock.json'))) {
         throw Error('\n\npackage.json and package-lock.json file needed!\n\n'.red);
     }
 
-    const srcDependencies = _getDependencesVersion(path.join(srcFolder, 'package.json'), path.join(srcFolder, 'package-lock.json'));
-    const targetDependencies = _getDependencesVersion(path.join(targetFolder, 'package.json'), path.join(targetFolder, 'package-lock.json'));
+    const newDependencies = _getDependencesVersion(path.join(newFolder, 'package.json'), path.join(newFolder, 'package-lock.json'));
+    const oldDependencies = _getDependencesVersion(path.join(oldFolder, 'package.json'), path.join(oldFolder, 'package-lock.json'));
 
     // 找到有变化的依赖
-    return _diffDependencies(srcDependencies, targetDependencies);
+    return _diffDependencies(oldDependencies, newDependencies);
 };
 
 module.exports = diffDependencies;
